@@ -3,10 +3,10 @@ package com.gildedrose;
 import org.approvaltests.Approvals;
 import org.junit.Test;
 
-public class TexttestFixture {
+public class ApprovalTest {
 
     @Test
-    public void test() {
+    public void testFor10Days() {
 
         Item[] items = new Item[] {
                 new Item("+5 Dexterity Vest", 10, 20), //
