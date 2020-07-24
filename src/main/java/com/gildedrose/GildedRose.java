@@ -15,11 +15,7 @@ class GildedRose {
             Item item = items[i];
             if (!item.name.equals(ItemType.AGED_BRIE)
                     && !item.name.equals(ItemType.BACKSTAGE_PASSES)) {
-                if (item.quality > MINIMUM_QUALITY_SCORE) {
-                    if (!item.name.equals(ItemType.SULFURAS)) {
-                        item.quality -= 1;
-                    }
-                }
+                degradeQualityUntilMinimum(item);
             } else {
                 increaseQualityUntilMax(item);
 
@@ -42,14 +38,16 @@ class GildedRose {
                     if (item.name.equals(ItemType.BACKSTAGE_PASSES)) {
                         item.quality = MINIMUM_QUALITY_SCORE;
                     } else {
-                        if (item.quality > MINIMUM_QUALITY_SCORE) {
-                            if (!item.name.equals(ItemType.SULFURAS)) {
-                                item.quality -= 1;
-                            }
-                        }
+                        degradeQualityUntilMinimum(item);
                     }
                 }
             }
+        }
+    }
+
+    private static void degradeQualityUntilMinimum(Item item) {
+        if (item.quality > MINIMUM_QUALITY_SCORE && !item.name.equals(ItemType.SULFURAS)) {
+            item.quality -= 1;
         }
     }
 
