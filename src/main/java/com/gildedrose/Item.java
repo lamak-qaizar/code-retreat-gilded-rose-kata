@@ -7,7 +7,7 @@ public class Item {
 
     private final String name;
     private int sellIn;
-    public int quality;
+    private int quality;
 
     public Item(String name, int sellIn, int quality) {
         this.name = name;
@@ -29,6 +29,10 @@ public class Item {
         if (this.quality > MIN_QUALITY) {
             decreaseQuality();
         }
+    }
+
+    public boolean isSellInNegative(){
+        return sellIn < 0;
     }
 
     public void decreaseSellIn() {
