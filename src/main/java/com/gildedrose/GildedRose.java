@@ -16,6 +16,8 @@ class GildedRose {
                 updateAgeBrieQuality(item);
             } else if (item.name().equals(ItemName.BACKSTAGE.getName())) {
                 updateBackStageQuality(item);
+            } else if (item.name().equals(ItemName.CONJURED.getName())) {
+                updateConjuredQuality(item);
             } else if (!item.name().equals(ItemName.SULFURES.getName())) {
                 item.decreaseQualityIfGreaterThanMin();
                 item.decreaseSellIn();
@@ -26,6 +28,13 @@ class GildedRose {
         }
     }
 
+    private void updateConjuredQuality(Item item){
+        item.decreaseQualityIfGreaterThanMin();
+        item.decreaseSellIn();
+        if (item.isSellInNegative()) {
+            item.decreaseQualityIfGreaterThanMin();
+        }
+    }
 
     private void updateAgeBrieQuality(Item item) {
         item.increaseQualityIfLessThanMax();
