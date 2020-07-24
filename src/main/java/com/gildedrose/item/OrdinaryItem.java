@@ -18,15 +18,12 @@ public class OrdinaryItem extends Item {
     public void update() {
         if (isQualityDegradable()) {
             this.quality--;
-
         }
 
         this.sellIn--;
 
-        if (isItemPassedSellInDate()) {
-            if (isQualityDegradable()) {
-                quality--;
-            }
+        if (isItemPassedSellInDate() && isQualityDegradable()) {
+            quality--;
         }
     }
 
