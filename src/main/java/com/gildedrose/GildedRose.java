@@ -15,25 +15,16 @@ class GildedRose {
 
     public void updateQuality() {
         for (Item item : items) {
+            if(item instanceof BackStagePass){
+                ((BackStagePass) item).update();
+                continue;
+            }
             if (doesItemDegradeWithTime(item) && isQualityDegradable(item) && !isLegendaryItem(item)) {
                 item.quality--;
 
             } else {
                 if (isQualityUpgradable(item)) {
-
-                    if (isBackstagePass(item)) {
-
-                        if (item.sellIn < 6) {
-                            item.quality = Math.min(MAX_QUALITY, item.quality + 3);
-                        } else if (item.sellIn <= 10) {
-                            item.quality = Math.min(MAX_QUALITY, item.quality + 2);
-                        } else if (item.sellIn > 10) {
-                            item.quality += 1;
-                        }
-                    }
-                    else {
-                        item.quality++;
-                    }
+                    item.quality++;
                 }
             }
 
