@@ -1,6 +1,10 @@
 package com.gildedrose;
 
 class GildedRose {
+
+    public static final String SULFURAS = "Sulfuras, Hand of Ragnaros";
+    public static final String AGED_BRIE = "Aged Brie";
+    public static final String BACKSTAGE_PASSES = "Backstage passes to a TAFKAL80ETC concert";
     Item[] items;
 
     public GildedRose(Item[] items) {
@@ -10,10 +14,10 @@ class GildedRose {
     public void updateQuality() {
         for (int i = 0; i < items.length; i++) {
             Item item = items[i];
-            if (!item.name.equals("Aged Brie")
-                    && !item.name.equals("Backstage passes to a TAFKAL80ETC concert")) {
+            if (!item.name.equals(AGED_BRIE)
+                    && !item.name.equals(BACKSTAGE_PASSES)) {
                 if (item.quality > 0) {
-                    if (!item.name.equals("Sulfuras, Hand of Ragnaros")) {
+                    if (!item.name.equals(SULFURAS)) {
                         decrementQuality(item);
                     }
                 }
@@ -21,7 +25,7 @@ class GildedRose {
                 if (qualityIsNotMaximum(item)) {
                     incrementQuality(item);
 
-                    if (item.name.equals("Backstage passes to a TAFKAL80ETC concert")) {
+                    if (item.name.equals(BACKSTAGE_PASSES)) {
                         if (item.sellIn < 11) {
                             if (qualityIsNotMaximum(item)) {
                                 incrementQuality(item);
@@ -37,15 +41,15 @@ class GildedRose {
                 }
             }
 
-            if (!item.name.equals("Sulfuras, Hand of Ragnaros")) {
+            if (!item.name.equals(SULFURAS)) {
                 decrementSellIn(item);
             }
 
-            if (item.sellIn < 0) {
-                if (!item.name.equals("Aged Brie")) {
-                    if (!item.name.equals("Backstage passes to a TAFKAL80ETC concert")) {
+            if (expired(item)) {
+                if (!item.name.equals(AGED_BRIE)) {
+                    if (!item.name.equals(BACKSTAGE_PASSES)) {
                         if (item.quality > 0) {
-                            if (!item.name.equals("Sulfuras, Hand of Ragnaros")) {
+                            if (!item.name.equals(SULFURAS)) {
                                 decrementQuality(item);
                             }
                         }
@@ -59,6 +63,10 @@ class GildedRose {
                 }
             }
         }
+    }
+
+    private boolean expired(Item item) {
+        return item.sellIn < 0;
     }
 
     private boolean qualityIsNotMaximum(Item item) {
