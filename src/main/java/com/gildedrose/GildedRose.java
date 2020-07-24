@@ -1,6 +1,10 @@
 package com.gildedrose;
 
 class GildedRose {
+    public static final String SULFURAS = "Sulfuras, Hand of Ragnaros";
+    public static final String AGED_BRIE = "Aged Brie";
+    public static final String BACKSTAGE_PASSES = "Backstage passes to a TAFKAL80ETC concert";
+    public static final String CONJURED = "Conjured Mana Cake";
     Item[] items;
 
     public GildedRose(Item[] items) {
@@ -8,58 +12,73 @@ class GildedRose {
     }
 
     public void updateQuality() {
-        for (int i = 0; i < items.length; i++) {
+        for (Item item : items) {
 
-            switch (items[i].name) {
-                case "Sulfuras, Hand of Ragnaros":
+            switch (item.name) {
+                case SULFURAS:
                     break;
-                case "Aged Brie":
-                    increaseQualityIfLessThan50(i);
+                case AGED_BRIE:
+                    upgradeQualityIfLessThan50(item);
 
-                    if (items[i].sellIn <= 0) {
-                        increaseQualityIfLessThan50(i);
+                    if (isExpired(item)) {
+                        upgradeQualityIfLessThan50(item);
                     }
                     break;
-                case "Backstage passes to a TAFKAL80ETC concert":
+                case BACKSTAGE_PASSES:
 
-                    increaseQualityIfLessThan50(i);
+                    upgradeQualityIfLessThan50(item);
 
-                    if (items[i].sellIn < 11) { //2
-                        increaseQualityIfLessThan50(i);
+                    if (item.sellIn < 11) {
+                        upgradeQualityIfLessThan50(item);
                     }
 
-                    if (items[i].sellIn < 6) { //
-                        increaseQualityIfLessThan50(i);
+                    if (item.sellIn < 6) {
+                        upgradeQualityIfLessThan50(item);
                     }
 
-                    if (items[i].sellIn <= 0) {
-                        items[i].quality = 0;
+                    if (isExpired(item)) {
+                        item.quality = 0;
+                    }
+                    break;
+                case CONJURED:
+                    degradeQualityIfGreaterThan0(item);
+                    degradeQualityIfGreaterThan0(item);
+
+                    if (isExpired(item)) {
+                        degradeQualityIfGreaterThan0(item);
+                        degradeQualityIfGreaterThan0(item);
                     }
                     break;
                 default:
-                    decreaseQualityIfGreaterThan0(i);
+                    degradeQualityIfGreaterThan0(item);
 
-                    if (items[i].sellIn <= 0) {
-                        decreaseQualityIfGreaterThan0(i);
+                    if (isExpired(item)) {
+                        degradeQualityIfGreaterThan0(item);
                     }
                     break;
             }
 
-            if (!items[i].name.equals("Sulfuras, Hand of Ragnaros")) {
-                items[i].sellIn = items[i].sellIn - 1;
+            if (!item.name.equals(GildedRose.SULFURAS)) {
+                item.sellIn = item.sellIn - 1;
             }
         }
     }
 
-    private void decreaseQualityIfGreaterThan0(int i) {
-        if (items[i].quality > 0) {
-            items[i].quality = items[i].quality - 1;
+    private boolean isExpired(Item item) {
+        return item.sellIn <= 0;
+    }
+
+    private void degradeQualityIfGreaterThan0(Item item) {
+        if (item.quality > 0) {
+            item.quality = item.quality - 1;
         }
     }
 
-    private void increaseQualityIfLessThan50(int i) {
-        if (items[i].quality < 50) {
-            items[i].quality = items[i].quality + 1; //1
+    private void upgradeQualityIfLessThan50(Item item) {
+        if (item.quality < 50) {
+            item.quality = item.quality + 1; //1
         }
     }
+
+
 }
