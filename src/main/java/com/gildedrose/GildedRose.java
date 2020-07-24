@@ -17,6 +17,7 @@ class GildedRose {
         for (Item item : items) {
             if (doesItemDegradeWithTime(item) && isQualityDegradable(item) && !isLegendaryItem(item)) {
                 item.quality--;
+
             } else {
                 if (isQualityUpgradable(item)) {
 
@@ -40,14 +41,13 @@ class GildedRose {
                 item.sellIn--;
             }
 
-            if (item.sellIn < 0) {
-                if (!item.name.equals(AGED_BRIE)) {
-                    if (!isBackstagePass(item)) {
-                        if (isQualityDegradable(item) && !isLegendaryItem(item)) {
-                            item.quality--;
-                        }
-                    } else {
-                        item.quality = MIN_QUALITY;
+            if (isItemPassedSellInDate(item)) {
+                if(isBackstagePass(item)){
+                    item.quality = MIN_QUALITY;
+                }
+                else if (!item.name.equals(AGED_BRIE)) {
+                    if (isQualityDegradable(item) && !isLegendaryItem(item)) {
+                        item.quality--;
                     }
                 } else {
                     if (isQualityUpgradable(item)) {
@@ -56,6 +56,10 @@ class GildedRose {
                 }
             }
         }
+    }
+
+    private boolean isItemPassedSellInDate(Item item) {
+        return item.sellIn < 0;
     }
 
     private boolean isBackstagePass(Item item) {
