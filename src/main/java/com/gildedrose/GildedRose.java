@@ -33,10 +33,7 @@ class GildedRose {
             }
 
             if (isItemPassedSellInDate(item)) {
-                if(isBackstagePass(item)){
-                    item.quality = MIN_QUALITY;
-                }
-                else if (!item.name.equals(AGED_BRIE)) {
+                if (!item.name.equals(AGED_BRIE)) {
                     if (isQualityDegradable(item) && !isLegendaryItem(item)) {
                         item.quality--;
                     }
