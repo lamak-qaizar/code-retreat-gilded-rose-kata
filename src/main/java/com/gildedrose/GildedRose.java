@@ -1,6 +1,7 @@
 package com.gildedrose;
 
 class GildedRose {
+
     Item[] items;
 
     public GildedRose(Item[] items) {
@@ -9,51 +10,38 @@ class GildedRose {
 
     public void updateQuality() {
         for (Item item : items) {
-            if (!item.name.equals(ItemName.AGE_BRIE.getName())
-                    && !item.name.equals(ItemName.BACKSTAGE.getName())) {
-                if (item.quality > 0) {
-                    if (!item.name.equals(ItemName.SULFURES.getName())) {
-                        item.decreaseQuality();
+            if (item.name().equals(ItemName.AGE_BRIE.getName())
+                || item.name().equals(ItemName.BACKSTAGE.getName())) {
+
+                item.increaseQualityIfLessThanMax();
+
+                if (item.name().equals(ItemName.BACKSTAGE.getName())) {
+
+                    if (item.sellIn() < 11) {
+                        item.increaseQualityIfLessThanMax();
+                    }
+
+                    if (item.sellIn() < 6) {
+                        item.increaseQualityIfLessThanMax();
                     }
                 }
-            } else {
-                if (item.quality < 50) {
-                    item.increaseQuality();
 
-                    if (item.name.equals(ItemName.BACKSTAGE.getName())) {
-                        if (item.sellIn < 11) {
-                            if (item.quality < 50) {
-                                item.increaseQuality();
-                            }
-                        }
-
-                        if (item.sellIn < 6) {
-                            if (item.quality < 50) {
-                                item.increaseQuality();
-                            }
-                        }
-                    }
-                }
+            } else if (!item.name().equals(ItemName.SULFURES.getName())) {
+                item.decreaseQualityIfGreaterThanMin();
             }
 
-            if (!item.name.equals(ItemName.SULFURES.getName())) {
-                item.sellIn = item.sellIn - 1;
+            if (!item.name().equals(ItemName.SULFURES.getName())) {
+                item.decreaseSellIn();
             }
 
-            if (item.sellIn < 0) {
-                if (!item.name.equals(ItemName.AGE_BRIE.getName())) {
-                    if (!item.name.equals(ItemName.BACKSTAGE.getName())) {
-                        if (item.quality > 0) {
-                            if (!item.name.equals(ItemName.SULFURES.getName())) {
-                                item.decreaseQuality();
-                            }
-                        }
-                    } else {
-                        item.resetQuality();
-                    }
+            if (item.sellIn() < 0) {
+                if (item.name().equals(ItemName.AGE_BRIE.getName())) {
+                    item.increaseQualityIfLessThanMax();
                 } else {
-                    if (item.quality < 50) {
-                        item.increaseQuality();
+                    if (item.name().equals(ItemName.BACKSTAGE.getName())) {
+                        item.resetQuality();
+                    } else if (!item.name().equals(ItemName.SULFURES.getName())) {
+                        item.decreaseQualityIfGreaterThanMin();
                     }
                 }
             }
