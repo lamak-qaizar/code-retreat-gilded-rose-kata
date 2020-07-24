@@ -1,10 +1,8 @@
 package com.gildedrose;
 
 class GildedRose {
-
     public static final int MINIMUM_QUALITY_SCORE = 0;
     public static final int MAXIMUM_QUALITY_SCORE = 50;
-
 
     Item[] items;
 
@@ -14,41 +12,39 @@ class GildedRose {
 
     public void updateQuality() {
         for (int i = 0; i < items.length; i++) {
-            if (!items[i].name.equals(ItemType.AGED_BRIE)
-                    && !items[i].name.equals(ItemType.BACKSTAGE_PASSES)) {
-                if (items[i].quality > MINIMUM_QUALITY_SCORE) {
-                    if (!items[i].name.equals(ItemType.SULFURAS)) {
-                        items[i].quality -= 1;
+            Item item = items[i];
+            if (!item.name.equals(ItemType.AGED_BRIE)
+                    && !item.name.equals(ItemType.BACKSTAGE_PASSES)) {
+                if (item.quality > MINIMUM_QUALITY_SCORE) {
+                    if (!item.name.equals(ItemType.SULFURAS)) {
+                        item.quality -= 1;
                     }
                 }
             } else {
-                if (items[i].quality < MAXIMUM_QUALITY_SCORE) {
-                    items[i].quality += 1;
+                increaseQualityUntilMax(item);
 
-                    if (items[i].name.equals(ItemType.BACKSTAGE_PASSES)) {
-                        increaseConcertQualityUnder10Days(i);
-
-                        increasePercentQualityUnder5Days(i, 6);
-                    }
+                if (item.quality < MAXIMUM_QUALITY_SCORE && item.name.equals(ItemType.BACKSTAGE_PASSES)) {
+                    increaseConcertQualityUnder10Days(item);
+                    increasePercentQualityUnderNDays(item, 5);
                 }
             }
 
-            if (!items[i].name.equals(ItemType.SULFURAS)) {
-                items[i].sellIn -= 1;
+            if (!item.name.equals(ItemType.SULFURAS)) {
+                item.sellIn -= 1;
             }
 
-            if (items[i].sellIn < 0) {
-                if (items[i].name.equals(ItemType.AGED_BRIE)) {
-                    if (items[i].quality < MAXIMUM_QUALITY_SCORE) {
-                        items[i].quality += 1;
+            if (item.sellIn < 0) {
+                if (item.name.equals(ItemType.AGED_BRIE)) {
+                    if (item.quality < MAXIMUM_QUALITY_SCORE) {
+                        item.quality += 1;
                     }
                 } else {
-                    if (items[i].name.equals(ItemType.BACKSTAGE_PASSES)) {
-                        items[i].quality = MINIMUM_QUALITY_SCORE;
+                    if (item.name.equals(ItemType.BACKSTAGE_PASSES)) {
+                        item.quality = MINIMUM_QUALITY_SCORE;
                     } else {
-                        if (items[i].quality > MINIMUM_QUALITY_SCORE) {
-                            if (!items[i].name.equals(ItemType.SULFURAS)) {
-                                items[i].quality -= 1;
+                        if (item.quality > MINIMUM_QUALITY_SCORE) {
+                            if (!item.name.equals(ItemType.SULFURAS)) {
+                                item.quality -= 1;
                             }
                         }
                     }
@@ -57,19 +53,19 @@ class GildedRose {
         }
     }
 
-    private void increasePercentQualityUnder5Days(int i, int i2) {
-        if (items[i].sellIn < i2) {
-            increaseQualityUntilMax(i);
+    private static void increasePercentQualityUnderNDays(Item item, int noOfDays) {
+        if (item.sellIn <= noOfDays) {
+            increaseQualityUntilMax(item);
         }
     }
 
-    private void increaseConcertQualityUnder10Days(int i) {
-        increasePercentQualityUnder5Days(i, 11);
+    private static void increaseConcertQualityUnder10Days(Item item) {
+        increasePercentQualityUnderNDays(item, 10);
     }
 
-    private void increaseQualityUntilMax(int i) {
-        if (items[i].quality < 50) {
-            items[i].quality += 1;
+    private static void increaseQualityUntilMax(Item item) {
+        if (item.quality < MAXIMUM_QUALITY_SCORE) {
+            item.quality += 1;
         }
     }
 }
