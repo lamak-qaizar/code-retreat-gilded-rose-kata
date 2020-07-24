@@ -10,37 +10,39 @@ class GildedRose {
     public void updateQuality() {
         for (int i = 0; i < items.length; i++) {
 
-            if (items[i].name.equals("Sulfuras, Hand of Ragnaros")) {
-
-            } else if (items[i].name.equals("Aged Brie")) {
-                increaseQualityIfLessThan50(i);
-
-                if (items[i].sellIn <= 0) {
+            switch (items[i].name) {
+                case "Sulfuras, Hand of Ragnaros":
+                    break;
+                case "Aged Brie":
                     increaseQualityIfLessThan50(i);
-                }
 
-            } else if (items[i].name.equals("Backstage passes to a TAFKAL80ETC concert")) {
+                    if (items[i].sellIn <= 0) {
+                        increaseQualityIfLessThan50(i);
+                    }
+                    break;
+                case "Backstage passes to a TAFKAL80ETC concert":
 
-                increaseQualityIfLessThan50(i);
-
-                if (items[i].sellIn < 11) { //2
                     increaseQualityIfLessThan50(i);
-                }
 
-                if (items[i].sellIn < 6) { //
-                    increaseQualityIfLessThan50(i);
-                }
+                    if (items[i].sellIn < 11) { //2
+                        increaseQualityIfLessThan50(i);
+                    }
 
-                if (items[i].sellIn <= 0) {
-                    items[i].quality = 0;
-                }
+                    if (items[i].sellIn < 6) { //
+                        increaseQualityIfLessThan50(i);
+                    }
 
-            } else {
-                decreaseQualityIfGreaterThan0(i);
-
-                if (items[i].sellIn <= 0) {
+                    if (items[i].sellIn <= 0) {
+                        items[i].quality = 0;
+                    }
+                    break;
+                default:
                     decreaseQualityIfGreaterThan0(i);
-                }
+
+                    if (items[i].sellIn <= 0) {
+                        decreaseQualityIfGreaterThan0(i);
+                    }
+                    break;
             }
 
             if (!items[i].name.equals("Sulfuras, Hand of Ragnaros")) {
