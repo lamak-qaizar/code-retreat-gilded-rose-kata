@@ -27,7 +27,7 @@ public class ApprovalTest {
         StringBuilder stringBuilder = new StringBuilder();
 
         for (int i = 0; i < days; i++) {
-            stringBuilder.append("-------- day " + i + " --------\n");
+            stringBuilder.append("-------- day ").append(i).append(" --------\n");
             stringBuilder.append("name, sellIn, quality\n");
             for (Item item : items) {
                 stringBuilder.append(item + "\n");

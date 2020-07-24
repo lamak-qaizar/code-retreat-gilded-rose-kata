@@ -11,6 +11,9 @@ public class AgedBrieQuality implements QualityUpdateStrategy {
     if(item.name.equals(ItemType.AGED_BRIE)) {
       item.sellIn--;
       increaseQualityUntilMax(item);
+      if (item.sellIn < 0) {
+        increaseQualityUntilMax(item);
+      }
     }
   }
 

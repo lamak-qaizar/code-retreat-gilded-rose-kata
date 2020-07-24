@@ -1,43 +1,35 @@
 package com.gildedrose;
 
+import com.gildedrose.quality.AgedBrieQuality;
+import com.gildedrose.quality.BackstagePassQuality;
+import com.gildedrose.quality.ConjuredQuality;
+import com.gildedrose.quality.DefaultItemQuality;
+import com.gildedrose.quality.QualityUpdateStrategy;
+import com.gildedrose.quality.SulfurasQualityUpdate;
+import java.util.ArrayList;
+import java.util.List;
+
 class GildedRose {
 
     Item[] items;
+    List<QualityUpdateStrategy> qualityUpdateStrategies;
 
     public GildedRose(Item[] items) {
         this.items = items;
+        qualityUpdateStrategies = new ArrayList<>();
+        qualityUpdateStrategies.add(new AgedBrieQuality());
+        qualityUpdateStrategies.add(new BackstagePassQuality());
+        qualityUpdateStrategies.add(new SulfurasQualityUpdate());
+        qualityUpdateStrategies.add(new ConjuredQuality());
+        qualityUpdateStrategies.add(new DefaultItemQuality());
     }
 
     public void updateQuality() {
         for (int i = 0; i < items.length; i++) {
             Item item = items[i];
-            if (!item.name.equals(ItemType.AGED_BRIE)
-                    && !item.name.equals(ItemType.BACKSTAGE_PASSES)) {
-                degradeQualityUntilMinimum(item);
-            } else {
-                increaseQualityUntilMax(item);
-
-                if (item.quality < Constants.MAXIMUM_QUALITY_SCORE && item.name.equals(ItemType.BACKSTAGE_PASSES)) {
-                    increaseConcertQualityUnder10Days(item);
-                    increasePercentQualityUnderNDays(item, 5);
-                }
-            }
-
-            if (!item.name.equals(ItemType.SULFURAS)) {
-                item.sellIn -= 1;
-            }
-
-            if (item.sellIn < 0) {
-                if (item.name.equals(ItemType.AGED_BRIE)) {
-                    increaseQualityUntilMax(item);
-                } else {
-                    if (item.name.equals(ItemType.BACKSTAGE_PASSES)) {
-                        item.quality = Constants.MINIMUM_QUALITY_SCORE;
-                    } else {
-                        degradeQualityUntilMinimum(item);
-                    }
-                }
-            }
+            qualityUpdateStrategies.forEach(qualityUpdateStrategy -> {
+                qualityUpdateStrategy.updateQuality(item);
+            });
         }
     }
 

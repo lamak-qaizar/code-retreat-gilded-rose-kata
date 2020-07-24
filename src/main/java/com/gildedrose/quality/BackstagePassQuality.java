@@ -8,12 +8,12 @@ public class BackstagePassQuality implements QualityUpdateStrategy {
 
   @Override
   public void updateQuality(Item item) {
-    item.sellIn--;
     if(item.name.equals(ItemType.BACKSTAGE_PASSES)) {
+
       increaseQualityUntilMax(item);
       increasePercentQualityUnderNDays(item, 10);
       increasePercentQualityUnderNDays(item, 5);
-
+      item.sellIn--;
       if(item.sellIn < 0) {
         item.quality = Constants.MINIMUM_QUALITY_SCORE;
       }
