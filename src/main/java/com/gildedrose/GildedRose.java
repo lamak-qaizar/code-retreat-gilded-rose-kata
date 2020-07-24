@@ -15,6 +15,10 @@ class GildedRose {
                     && nameNotEqual(items[i], Constant.SULFURAS_HAND_OF_RAGNAROS)) {
                 items[i].quality = items[i].quality - 1;
 
+                if (isSellInLessThan(items[i].sellIn, 0) && items[i].quality > 0)
+                    items[i].quality = items[i].quality - 1;
+
+
             } else {
                 if (isQualityLessThan50(items[i].quality, 50)) {
                     items[i].quality = items[i].quality + 1;
