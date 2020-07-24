@@ -1,8 +1,6 @@
 package com.gildedrose;
 
 class GildedRose {
-    public static final int MINIMUM_QUALITY_SCORE = 0;
-    public static final int MAXIMUM_QUALITY_SCORE = 50;
 
     Item[] items;
 
@@ -19,7 +17,7 @@ class GildedRose {
             } else {
                 increaseQualityUntilMax(item);
 
-                if (item.quality < MAXIMUM_QUALITY_SCORE && item.name.equals(ItemType.BACKSTAGE_PASSES)) {
+                if (item.quality < Constants.MAXIMUM_QUALITY_SCORE && item.name.equals(ItemType.BACKSTAGE_PASSES)) {
                     increaseConcertQualityUnder10Days(item);
                     increasePercentQualityUnderNDays(item, 5);
                 }
@@ -31,12 +29,10 @@ class GildedRose {
 
             if (item.sellIn < 0) {
                 if (item.name.equals(ItemType.AGED_BRIE)) {
-                    if (item.quality < MAXIMUM_QUALITY_SCORE) {
-                        item.quality += 1;
-                    }
+                    increaseQualityUntilMax(item);
                 } else {
                     if (item.name.equals(ItemType.BACKSTAGE_PASSES)) {
-                        item.quality = MINIMUM_QUALITY_SCORE;
+                        item.quality = Constants.MINIMUM_QUALITY_SCORE;
                     } else {
                         degradeQualityUntilMinimum(item);
                     }
@@ -46,7 +42,7 @@ class GildedRose {
     }
 
     private static void degradeQualityUntilMinimum(Item item) {
-        if (item.quality > MINIMUM_QUALITY_SCORE && !item.name.equals(ItemType.SULFURAS)) {
+        if (item.quality > Constants.MINIMUM_QUALITY_SCORE && !item.name.equals(ItemType.SULFURAS)) {
             item.quality -= 1;
         }
     }
@@ -62,7 +58,7 @@ class GildedRose {
     }
 
     private static void increaseQualityUntilMax(Item item) {
-        if (item.quality < MAXIMUM_QUALITY_SCORE) {
+        if (item.quality < Constants.MAXIMUM_QUALITY_SCORE) {
             item.quality += 1;
         }
     }
