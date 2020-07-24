@@ -4,7 +4,9 @@ class GildedRose {
     public static final String AGED_BRIE = "Aged Brie";
     public static final String BACKSTAGE_PASSES_TO_A_TAFKAL_80_ETC_CONCERT = "Backstage passes to a TAFKAL80ETC concert";
     public static final String SULFURAS_HAND_OF_RAGNAROS = "Sulfuras, Hand of Ragnaros";
-    
+    public static final int MAX_QUALITY = 50;
+    public static final int MIN_QUALITY = 0;
+
     Item[] items;
 
     public GildedRose(Item[] items) {
@@ -13,54 +15,73 @@ class GildedRose {
 
     public void updateQuality() {
         for (Item item : items) {
-            if (!item.name.equals(AGED_BRIE)
-                    && !item.name.equals(BACKSTAGE_PASSES_TO_A_TAFKAL_80_ETC_CONCERT)) {
-                if (item.quality > 0) {
-                    if (!item.name.equals(SULFURAS_HAND_OF_RAGNAROS)) {
-                        item.quality = item.quality - 1;
-                    }
-                }
+            if (doesItemDegradeWithTime(item) && isQualityDegradable(item) && !isLegendaryItem(item)) {
+                item.quality--;
             } else {
-                if (item.quality < 50) {
-                    item.quality = item.quality + 1;
+                if (isQualityUpgradable(item)) {
 
-                    if (item.name.equals(BACKSTAGE_PASSES_TO_A_TAFKAL_80_ETC_CONCERT)) {
-                        if (item.sellIn < 11) {
-                            if (item.quality < 50) {
-                                item.quality = item.quality + 1;
-                            }
+                    if (isBackstagePass(item)) {
+
+                        if (item.sellIn > 10) {
+                            item.quality += 1;
                         }
 
-                        if (item.sellIn < 6) {
-                            if (item.quality < 50) {
-                                item.quality = item.quality + 1;
-                            }
+                        else if (item.sellIn <= 10) {
+                            item.quality = Math.min(MAX_QUALITY, item.quality + 2);
                         }
+
+                        else if (item.sellIn < 6) {
+                            item.quality = Math.min(MAX_QUALITY, item.quality + 3);
+                        }
+                    }
+                    else {
+                        item.quality++;
                     }
                 }
             }
 
-            if (!item.name.equals(SULFURAS_HAND_OF_RAGNAROS)) {
-                item.sellIn = item.sellIn - 1;
+            if (!isLegendaryItem(item)) {
+                item.sellIn--;
             }
 
             if (item.sellIn < 0) {
                 if (!item.name.equals(AGED_BRIE)) {
-                    if (!item.name.equals(BACKSTAGE_PASSES_TO_A_TAFKAL_80_ETC_CONCERT)) {
-                        if (item.quality > 0) {
-                            if (!item.name.equals(SULFURAS_HAND_OF_RAGNAROS)) {
-                                item.quality = item.quality - 1;
+                    if (!isBackstagePass(item)) {
+                        if (isQualityDegradable(item)) {
+                            if (!isLegendaryItem(item)) {
+                                item.quality--;
                             }
                         }
                     } else {
-                        item.quality = 0;
+                        item.quality = MIN_QUALITY;
                     }
                 } else {
-                    if (item.quality < 50) {
-                        item.quality = item.quality + 1;
+                    if (isQualityUpgradable(item)) {
+                        item.quality++;
                     }
                 }
             }
         }
+    }
+
+    private boolean isBackstagePass(Item item) {
+        return item.name.equals(BACKSTAGE_PASSES_TO_A_TAFKAL_80_ETC_CONCERT);
+    }
+
+    private boolean isQualityUpgradable(Item item) {
+        return item.quality < MAX_QUALITY;
+    }
+
+    private boolean doesItemDegradeWithTime(Item item) {
+        return !item.name.equals(AGED_BRIE)
+                && !isBackstagePass(item);
+    }
+
+    private boolean isQualityDegradable(Item item) {
+        return item.quality > MIN_QUALITY;
+    }
+
+    private boolean isLegendaryItem(Item item) {
+        return item.name.equals(SULFURAS_HAND_OF_RAGNAROS);
     }
 }
