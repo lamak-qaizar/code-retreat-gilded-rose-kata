@@ -22,16 +22,12 @@ class GildedRose {
 
                     if (isBackstagePass(item)) {
 
-                        if (item.sellIn > 10) {
-                            item.quality += 1;
-                        }
-
-                        else if (item.sellIn <= 10) {
-                            item.quality = Math.min(MAX_QUALITY, item.quality + 2);
-                        }
-
-                        else if (item.sellIn < 6) {
+                        if (item.sellIn < 6) {
                             item.quality = Math.min(MAX_QUALITY, item.quality + 3);
+                        } else if (item.sellIn <= 10) {
+                            item.quality = Math.min(MAX_QUALITY, item.quality + 2);
+                        } else if (item.sellIn > 10) {
+                            item.quality += 1;
                         }
                     }
                     else {
@@ -47,10 +43,8 @@ class GildedRose {
             if (item.sellIn < 0) {
                 if (!item.name.equals(AGED_BRIE)) {
                     if (!isBackstagePass(item)) {
-                        if (isQualityDegradable(item)) {
-                            if (!isLegendaryItem(item)) {
-                                item.quality--;
-                            }
+                        if (isQualityDegradable(item) && !isLegendaryItem(item)) {
+                            item.quality--;
                         }
                     } else {
                         item.quality = MIN_QUALITY;
