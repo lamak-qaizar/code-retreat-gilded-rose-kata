@@ -20,6 +20,7 @@ class GildedRose {
                 }
                 continue;
             }
+
             if (normalItem(item)) {
                 if (item.quality > 0) {
                     decrementQuality(item);
@@ -29,17 +30,7 @@ class GildedRose {
                     incrementQuality(item);
 
                     if (item.name.equals(BACKSTAGE_PASSES)) {
-                        if (item.sellIn < 11) {
-                            if (qualityIsNotMaximum(item)) {
-                                incrementQuality(item);
-                            }
-                        }
-
-                        if (item.sellIn < 6) {
-                            if (qualityIsNotMaximum(item)) {
-                                incrementQuality(item);
-                            }
-                        }
+                        increaseBackstagePassesQuality(item);
                     }
                 }
             }
@@ -62,6 +53,20 @@ class GildedRose {
                         incrementQuality(item);
                     }
                 }
+            }
+        }
+    }
+
+    private void increaseBackstagePassesQuality(Item item) {
+        if (item.sellIn < 11) {
+            if (qualityIsNotMaximum(item)) {
+                incrementQuality(item);
+            }
+        }
+
+        if (item.sellIn < 6) {
+            if (qualityIsNotMaximum(item)) {
+                incrementQuality(item);
             }
         }
     }
