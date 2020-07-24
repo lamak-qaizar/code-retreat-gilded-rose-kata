@@ -15,7 +15,7 @@ class GildedRose {
         for (int i = 0; i < items.length; i++) {
             Item item = items[i];
             if (item.name.equals(SULFURAS)) {
-                if(item.sellIn > 0){
+                if (item.sellIn > 0) {
                     decrementSellIn(item);
                 }
                 continue;
@@ -23,9 +23,7 @@ class GildedRose {
             if (!item.name.equals(AGED_BRIE)
                     && !item.name.equals(BACKSTAGE_PASSES)) {
                 if (item.quality > 0) {
-                    if (!item.name.equals(SULFURAS)) {
-                        decrementQuality(item);
-                    }
+                    decrementQuality(item);
                 }
             } else {
                 if (qualityIsNotMaximum(item)) {
@@ -47,17 +45,13 @@ class GildedRose {
                 }
             }
 
-            if (!item.name.equals(SULFURAS)) {
-                decrementSellIn(item);
-            }
+            decrementSellIn(item);
 
             if (expired(item)) {
                 if (!item.name.equals(AGED_BRIE)) {
                     if (!item.name.equals(BACKSTAGE_PASSES)) {
                         if (item.quality > 0) {
-                            if (!item.name.equals(SULFURAS)) {
-                                decrementQuality(item);
-                            }
+                            decrementQuality(item);
                         }
                     } else {
                         setQualitytoZero(item);
