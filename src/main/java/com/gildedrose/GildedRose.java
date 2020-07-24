@@ -20,8 +20,7 @@ class GildedRose {
                 }
                 continue;
             }
-            if (!item.name.equals(AGED_BRIE)
-                    && !item.name.equals(BACKSTAGE_PASSES)) {
+            if (normalItem(item)) {
                 if (item.quality > 0) {
                     decrementQuality(item);
                 }
@@ -48,21 +47,28 @@ class GildedRose {
             decrementSellIn(item);
 
             if (expired(item)) {
-                if (!item.name.equals(AGED_BRIE)) {
-                    if (!item.name.equals(BACKSTAGE_PASSES)) {
-                        if (item.quality > 0) {
-                            decrementQuality(item);
-                        }
-                    } else {
-                        setQualitytoZero(item);
+                if (normalItem(item)){
+                    if(item.quality > 0){
+                        decrementQuality(item);
                     }
-                } else {
+                }
+
+                if (item.name.equals(BACKSTAGE_PASSES)) {
+                    setQualitytoZero(item);
+                }
+
+                if (item.name.equals(AGED_BRIE)) {
                     if (qualityIsNotMaximum(item)) {
                         incrementQuality(item);
                     }
                 }
             }
         }
+    }
+
+    private boolean normalItem(Item item) {
+        return !item.name.equals(AGED_BRIE)
+                && !item.name.equals(BACKSTAGE_PASSES);
     }
 
     private boolean expired(Item item) {
