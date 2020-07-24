@@ -1,15 +1,15 @@
-package com.gildedrose;
+package com.gildedrose.item.special;
 
-public class BackStagePass extends Item{
+import com.gildedrose.item.OrdinaryItem;
 
-    public static final int MAX_QUALITY = 50;
-    public static final int MIN_QUALITY = 0;
+public class BackStagePass extends OrdinaryItem {
 
     public BackStagePass(String name, int sellIn, int quality) {
         super(name, sellIn, quality);
     }
 
-    void update() {
+    @Override
+    public void update() {
 
         if (this.sellIn < 0) {
             this.quality = MIN_QUALITY;
