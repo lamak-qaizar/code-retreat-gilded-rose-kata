@@ -30,4 +30,10 @@ public class Item {
     boolean isSulfuras() {
         return name.equals("Sulfuras, Hand of Ragnaros");
     }
+
+    void reduceQualityBySingleStep() {
+        if (quality > 0) {
+            quality = quality - 1;
+        }
+    }
 }
