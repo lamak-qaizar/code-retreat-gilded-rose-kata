@@ -7,17 +7,23 @@ class GildedRose {
         this.items = items;
     }
 
+    private void adjustDailyQuality(Item item) {
+        if (item.quality > 0) {
+            item.quality = item.quality - 1;
+        }
+    }
+
     public void updateQuality() {
         for (Item item : items) {
 
             if (item.isBackstage()) {
-                incrementQualityForBackstage(item);
+                adjustDailyQualityForBackstage(item);
             } else if (item.isAgedBrie()) {
-                incrementQualityBySingleStep(item);
+                adjustDailyQualityForAgedBrie(item);
             } else if (item.isSulfuras()) {
-                incrementQualityBySingleStep(item);
+                adjustDailyQualityForSulfuras(item);
             } else {
-                item.reduceQualityBySingleStep();
+                adjustDailyQuality(item);
             }
 
             if (!item.isSulfuras()) {
@@ -42,7 +48,15 @@ class GildedRose {
         }
     }
 
-    private void incrementQualityForBackstage(Item item) {
+    private void adjustDailyQualityForSulfuras(Item item) {
+        incrementQualityBySingleStep(item);
+    }
+
+    private void adjustDailyQualityForAgedBrie(Item item) {
+        incrementQualityBySingleStep(item);
+    }
+
+    private void adjustDailyQualityForBackstage(Item item) {
         incrementQualityBySingleStep(item);
 
         if (item.sellIn < 11) {
