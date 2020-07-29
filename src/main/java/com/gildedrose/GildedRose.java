@@ -10,11 +10,7 @@ class GildedRose {
     public void updateQuality() {
         for (Item item : items) {
 
-            if (!item.isAgedBrie()
-                    && !item.isBackstage()
-            && !item.isSulfuras()) {
-                item.reduceQualityBySingleStep();
-            } else {
+            if (item.isAgedBrie() || item.isBackstage() || item.isSulfuras()) {
                 if (item.quality < 50) {
                     item.quality = item.quality + 1;
 
@@ -32,6 +28,8 @@ class GildedRose {
                         }
                     }
                 }
+            } else {
+                item.reduceQualityBySingleStep();
             }
 
             if (!item.isSulfuras()) {
