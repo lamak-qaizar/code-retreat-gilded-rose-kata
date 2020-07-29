@@ -12,7 +12,9 @@ class GildedRose {
 
             if (item.isBackstage()) {
                 incrementQualityForBackstage(item);
-            } else if (item.isAgedBrie() || item.isSulfuras()) {
+            } else if (item.isAgedBrie()) {
+                incrementQualityBySingleStep(item);
+            } else if (item.isSulfuras()) {
                 incrementQualityBySingleStep(item);
             } else {
                 item.reduceQualityBySingleStep();
