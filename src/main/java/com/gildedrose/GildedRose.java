@@ -11,19 +11,7 @@ class GildedRose {
         for (Item item : items) {
 
             if (item.isBackstage()) {
-                if (item.quality < 50) {
-                    item.quality = item.quality + 1;
-
-                    if (item.isBackstage()) {
-                        if (item.sellIn < 11) {
-                            incrementQualityBySingleStep(item);
-                        }
-
-                        if (item.sellIn < 6) {
-                            incrementQualityBySingleStep(item);
-                        }
-                    }
-                }
+                incrementQualityForBackstage(item);
             } else if (item.isAgedBrie() || item.isSulfuras()) {
                 incrementQualityBySingleStep(item);
             } else {
@@ -49,6 +37,21 @@ class GildedRose {
                     incrementQualityBySingleStep(item);
                 }
             }
+        }
+    }
+
+    private void incrementQualityForBackstage(Item item) {
+        if (item.quality < 50) {
+            item.quality = item.quality + 1;
+
+            if (item.sellIn < 11) {
+                incrementQualityBySingleStep(item);
+            }
+
+            if (item.sellIn < 6) {
+                incrementQualityBySingleStep(item);
+            }
+
         }
     }
 
