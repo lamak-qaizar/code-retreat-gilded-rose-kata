@@ -1,6 +1,6 @@
 package com.gildedrose;
 
-public abstract class InventoryItem {
+public class InventoryItem {
 
     public Item item;
 
@@ -14,7 +14,11 @@ public abstract class InventoryItem {
         }
     }
 
-    public abstract void adjustDailyQuality();
+    public void adjustDailyQuality() {
+        if (item.quality > 0) {
+            item.quality = item.quality - 1;
+        }
+    }
 
     void adjustSellinDays() {
         item.sellIn = item.sellIn - 1;

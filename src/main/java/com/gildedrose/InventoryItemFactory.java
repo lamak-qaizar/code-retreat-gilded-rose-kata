@@ -15,7 +15,7 @@ public class InventoryItemFactory {
             case "Sulfuras, Hand of Ragnaros":
                 return new Sulfuras(item);
             default:
-                return new GeneralInventoryItem(item);
+                return new InventoryItem(item);
         }
     }
 
