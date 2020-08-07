@@ -9,4 +9,8 @@ public class Sulfuras extends InventoryItem {
     public void adjustDailyQuality() {
         InventoryItem.incrementQualityBySingleStep(this);
     }
+
+    @Override
+    void adjustSellinDays() {
+    }
 }

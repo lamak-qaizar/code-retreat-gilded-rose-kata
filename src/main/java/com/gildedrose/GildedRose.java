@@ -13,10 +13,7 @@ class GildedRose {
             InventoryItem inventoryItem = InventoryItemFactory.createFor(item);
 
             inventoryItem.adjustDailyQuality();
-
-            if (!item.isSulfuras()) {
-                item.sellIn = item.sellIn - 1;
-            }
+            inventoryItem.adjustSellinDays();
 
             if (item.sellIn < 0) {
                 if (!item.isAgedBrie()) {

@@ -15,4 +15,8 @@ public abstract class InventoryItem {
     }
 
     public abstract void adjustDailyQuality();
+
+    void adjustSellinDays() {
+        item.sellIn = item.sellIn - 1;
+    }
 }
