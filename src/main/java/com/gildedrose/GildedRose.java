@@ -27,7 +27,7 @@ class GildedRose {
                         item.quality = item.quality - item.quality;
                     }
                 } else {
-                    InventoryItem.incrementQualityBySingleStep(inventoryItem);
+                    inventoryItem.incrementQualityBySingleStep();
                 }
             }
         }

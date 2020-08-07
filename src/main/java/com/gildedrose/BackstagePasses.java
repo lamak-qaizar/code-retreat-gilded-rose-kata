@@ -12,14 +12,14 @@ public class BackstagePasses extends InventoryItem {
 
     @Override
     public void adjustDailyQuality() {
-        incrementQualityBySingleStep(this);
+        this.incrementQualityBySingleStep();
 
         if (item.sellIn < 11) {
-            incrementQualityBySingleStep(this);
+            this.incrementQualityBySingleStep();
         }
 
         if (this.item.sellIn < 6) {
-            incrementQualityBySingleStep(this);
+            this.incrementQualityBySingleStep();
         }
     }
 }

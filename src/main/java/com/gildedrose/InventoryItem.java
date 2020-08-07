@@ -8,9 +8,9 @@ public class InventoryItem {
         this.item = item;
     }
 
-    static void incrementQualityBySingleStep(InventoryItem inventoryItem) {
-        if (inventoryItem.item.quality < 50) {
-            inventoryItem.item.quality = inventoryItem.item.quality + 1;
+    void incrementQualityBySingleStep() {
+        if (item.quality < 50) {
+            item.quality = item.quality + 1;
         }
     }
 
