@@ -18,14 +18,12 @@ class GildedRose {
             if (inventoryItem.hasSellingDaysPassed()) {
                 if (item.isAgedBrie()) {
                     inventoryItem.incrementQualityBySingleStep();
+                } else if (item.isBackstage()) {
+                    item.quality = 0;
                 } else {
-                    if (item.isBackstage()) {
-                        item.quality = 0;
-                    } else {
+                    if (!item.isSulfuras()) {
                         if (item.quality > 0) {
-                            if (!item.isSulfuras()) {
-                                item.quality = item.quality - 1;
-                            }
+                            item.quality = item.quality - 1;
                         }
                     }
                 }
