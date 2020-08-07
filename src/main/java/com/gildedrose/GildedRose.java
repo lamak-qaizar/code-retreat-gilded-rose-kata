@@ -20,15 +20,16 @@ class GildedRose {
                     inventoryItem.incrementQualityBySingleStep();
                 } else if (item.isBackstage()) {
                     item.quality = 0;
+                } else if (item.isSulfuras()) {
+                    //DO nothing
                 } else {
-                    if (!item.isSulfuras()) {
-                        if (item.quality > 0) {
-                            item.quality = item.quality - 1;
-                        }
+                    if (item.quality > 0) {
+                        item.quality = item.quality - 1;
                     }
                 }
             }
         }
     }
+
 
 }
