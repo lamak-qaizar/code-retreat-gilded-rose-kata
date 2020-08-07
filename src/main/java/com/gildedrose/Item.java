@@ -19,16 +19,4 @@ public class Item {
         return this.name + ", " + this.sellIn + ", " + this.quality;
     }
 
-    boolean isBackstage() {
-        return name.equals("Backstage passes to a TAFKAL80ETC concert");
-    }
-
-    boolean isAgedBrie() {
-        return name.equals("Aged Brie");
-    }
-
-    boolean isSulfuras() {
-        return name.equals("Sulfuras, Hand of Ragnaros");
-    }
-
 }

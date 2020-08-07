@@ -7,7 +7,7 @@ public class Sulfuras extends InventoryItem {
 
     @Override
     public void adjustDailyQuality() {
-        this.incrementQualityBySingleStep();
+        this.stepUpQuality();
     }
 
     @Override

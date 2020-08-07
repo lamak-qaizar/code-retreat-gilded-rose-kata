@@ -6,20 +6,16 @@ public class BackstagePasses extends InventoryItem {
         super(item);
     }
 
-    static void adjustDailyQualityForBackstage(InventoryItem inventoryItem) {
-
-    }
-
     @Override
     protected void adjustDailyQuality() {
-        this.incrementQualityBySingleStep();
+        this.stepUpQuality();
 
         if (item.sellIn < 11) {
-            this.incrementQualityBySingleStep();
+            this.stepUpQuality();
         }
 
         if (this.item.sellIn < 6) {
-            this.incrementQualityBySingleStep();
+            this.stepUpQuality();
         }
     }
 
