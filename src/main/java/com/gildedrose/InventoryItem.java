@@ -13,13 +13,13 @@ public class InventoryItem {
         adjustSellInDay();
     }
 
-    protected void stepUpQuality() {
+    protected final void stepUpQuality() {
         if (item.quality < 50) {
             item.quality = item.quality + 1;
         }
     }
 
-    protected void stepDownQuality() {
+    protected final void stepDownQuality() {
         if (item.quality > 0) {
             item.quality = item.quality - 1;
         }
