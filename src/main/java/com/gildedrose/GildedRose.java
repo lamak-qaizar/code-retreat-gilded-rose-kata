@@ -3,8 +3,6 @@ package com.gildedrose;
 class GildedRose {
     Item[] items;
 
-    InventoryItem[] inventoryItems;
-
     public GildedRose(Item[] items) {
         this.items = items;
     }

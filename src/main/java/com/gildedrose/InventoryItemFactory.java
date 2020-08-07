@@ -14,6 +14,8 @@ public class InventoryItemFactory {
                 return new AgedBrie(item);
             case "Sulfuras, Hand of Ragnaros":
                 return new Sulfuras(item);
+            case "Conjured Mana Cake":
+                return new Conjured(item);
             default:
                 return new InventoryItem(item);
         }

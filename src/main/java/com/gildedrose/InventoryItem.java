@@ -19,7 +19,7 @@ public class InventoryItem {
         }
     }
 
-    private void stepDownQuality() {
+    protected void stepDownQuality() {
         if (item.quality > 0) {
             item.quality = item.quality - 1;
         }
