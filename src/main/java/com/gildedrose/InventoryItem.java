@@ -8,11 +8,12 @@ public class InventoryItem {
         this.item = item;
     }
 
-    void incrementQualityBySingleStep() {
+    protected void incrementQualityBySingleStep() {
         if (item.quality < 50) {
             item.quality = item.quality + 1;
         }
     }
+
 
     public void adjustDailyQuality() {
         if (item.quality > 0) {
@@ -26,5 +27,9 @@ public class InventoryItem {
 
     boolean hasSellingDaysPassed() {
         return item.sellIn < 0;
+    }
+
+    public void adjustQualityPostSellDate() {
+        adjustDailyQuality();
     }
 }

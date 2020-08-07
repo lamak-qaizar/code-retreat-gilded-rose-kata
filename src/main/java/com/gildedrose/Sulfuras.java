@@ -13,4 +13,9 @@ public class Sulfuras extends InventoryItem {
     @Override
     void adjustSellinDays() {
     }
+
+    @Override
+    public void adjustQualityPostSellDate() {
+
+    }
 }

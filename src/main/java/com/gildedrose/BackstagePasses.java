@@ -22,4 +22,9 @@ public class BackstagePasses extends InventoryItem {
             this.incrementQualityBySingleStep();
         }
     }
+
+    @Override
+    public void adjustQualityPostSellDate() {
+        item.quality = 0;
+    }
 }

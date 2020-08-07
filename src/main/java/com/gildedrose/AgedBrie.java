@@ -9,4 +9,9 @@ public class AgedBrie extends InventoryItem {
     public void adjustDailyQuality() {
         this.incrementQualityBySingleStep();
     }
+
+    @Override
+    public void adjustQualityPostSellDate() {
+        this.incrementQualityBySingleStep();
+    }
 }
