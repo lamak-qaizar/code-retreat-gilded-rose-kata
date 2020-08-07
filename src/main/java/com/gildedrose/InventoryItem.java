@@ -2,7 +2,7 @@ package com.gildedrose;
 
 public class InventoryItem {
 
-    public Item item;
+    protected Item item;
 
     public InventoryItem(Item item) {
         this.item = item;
@@ -15,25 +15,25 @@ public class InventoryItem {
     }
 
 
-    public void adjustDailyQuality() {
+    protected void adjustDailyQuality() {
         if (item.quality > 0) {
             item.quality = item.quality - 1;
         }
     }
 
-    void stepSellInDay() {
+    protected void stepSellInDay() {
         item.sellIn = item.sellIn - 1;
     }
 
-    boolean hasSellingDaysPassed() {
+    private boolean hasSellingDaysPassed() {
         return item.sellIn < 0;
     }
 
-    public void adjustQualityPostSellDate() {
+    protected void adjustQualityPostSellDate() {
         adjustDailyQuality();
     }
 
-    void adjustSellInDay() {
+    private void adjustSellInDay() {
         stepSellInDay();
 
         if (hasSellingDaysPassed()) {
@@ -41,7 +41,7 @@ public class InventoryItem {
         }
     }
 
-    void performDailyAdjustment() {
+    public void performDailyAdjustment() {
         adjustDailyQuality();
         adjustSellInDay();
     }

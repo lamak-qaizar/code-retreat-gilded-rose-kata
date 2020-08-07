@@ -11,7 +11,7 @@ public class BackstagePasses extends InventoryItem {
     }
 
     @Override
-    public void adjustDailyQuality() {
+    protected void adjustDailyQuality() {
         this.incrementQualityBySingleStep();
 
         if (item.sellIn < 11) {
@@ -24,7 +24,7 @@ public class BackstagePasses extends InventoryItem {
     }
 
     @Override
-    public void adjustQualityPostSellDate() {
+    protected void adjustQualityPostSellDate() {
         item.quality = 0;
     }
 }

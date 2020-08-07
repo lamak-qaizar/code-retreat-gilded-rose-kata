@@ -6,12 +6,12 @@ public class AgedBrie extends InventoryItem {
     }
 
     @Override
-    public void adjustDailyQuality() {
+    protected void adjustDailyQuality() {
         this.incrementQualityBySingleStep();
     }
 
     @Override
-    public void adjustQualityPostSellDate() {
+    protected void adjustQualityPostSellDate() {
         this.incrementQualityBySingleStep();
     }
 }

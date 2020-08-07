@@ -11,11 +11,11 @@ public class Sulfuras extends InventoryItem {
     }
 
     @Override
-    void stepSellInDay() {
+    protected void stepSellInDay() {
     }
 
     @Override
-    public void adjustQualityPostSellDate() {
+    protected void adjustQualityPostSellDate() {
 
     }
 }
