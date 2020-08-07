@@ -21,7 +21,7 @@ public class InventoryItem {
         }
     }
 
-    void adjustSellinDays() {
+    void stepSellInDay() {
         item.sellIn = item.sellIn - 1;
     }
 
@@ -31,5 +31,18 @@ public class InventoryItem {
 
     public void adjustQualityPostSellDate() {
         adjustDailyQuality();
+    }
+
+    void adjustSellInDay() {
+        stepSellInDay();
+
+        if (hasSellingDaysPassed()) {
+            adjustQualityPostSellDate();
+        }
+    }
+
+    void performDailyAdjustment() {
+        adjustDailyQuality();
+        adjustSellInDay();
     }
 }
