@@ -15,7 +15,7 @@ class GildedRose {
             inventoryItem.adjustDailyQuality();
             inventoryItem.adjustSellinDays();
 
-            if (item.sellIn < 0) {
+            if (inventoryItem.hasSellingDaysPassed()) {
                 if (!item.isAgedBrie()) {
                     if (!item.isBackstage()) {
                         if (item.quality > 0) {

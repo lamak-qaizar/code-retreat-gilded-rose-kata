@@ -23,4 +23,8 @@ public class InventoryItem {
     void adjustSellinDays() {
         item.sellIn = item.sellIn - 1;
     }
+
+    boolean hasSellingDaysPassed() {
+        return item.sellIn < 0;
+    }
 }
